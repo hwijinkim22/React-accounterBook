@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
-const DateInput = () => {
-  const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
+const DateInput = ({date, setDate}) => {
+
   return (
     <div>
       날짜: <input 
-      type='date'
+      type='text'
       value={date}
+      placeholder='YYYY-MM-DD'
       onChange={(e) => {
         setDate(e.target.value);
       }}

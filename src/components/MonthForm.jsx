@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import MonthButton from './MonthButton';
-import { useState } from 'react';
-
 
 const StyleMonthForm = styled.div `
     background-color: #cae6fb;
@@ -21,13 +19,15 @@ const months = [
 
 console.log(months);
 
-const MonthForm = () => {
+const MonthForm = ({currentMonth ,setCurrentMonth}) => {
     return (
         <StyleMonthForm>
             {months.map((month) => (
                 <MonthButton
                 key={month} 
-                month = {month}
+                month={month}
+                currentMonth={currentMonth}
+                setCurrentMonth={setCurrentMonth}
                 >{month}</MonthButton>
             ))}
         </StyleMonthForm>

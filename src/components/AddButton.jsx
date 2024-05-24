@@ -1,8 +1,9 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import React, { useState } from "react";
+import styled from "styled-components";
+import Input from "./Input";
 
 const ButtonStyle = styled.button`
-    background-color: #75c3ff;
+  background-color: #75c3ff;
   border-radius: 10px;
   padding: 10px;
   margin: 5px 20px;
@@ -16,15 +17,15 @@ const ButtonStyle = styled.button`
   }
 `;
 
-
-const AddButton = () => {
+const AddButton = ({handleAdd}) => {
   return (
     <div>
-        <ButtonStyle> 
-            등록
-        </ButtonStyle>
+      <ButtonStyle
+      type="submit"
+      onClick={handleAdd}
+      >등록</ButtonStyle>
     </div>
-  )
-}
+  );
+};
 
 export default AddButton;

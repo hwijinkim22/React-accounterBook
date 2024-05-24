@@ -8,10 +8,7 @@ const InputStyle = styled.input`
     justify-content: center;
     align-items: center;
 `
-const Input = () => {
-  const [item, setItem] = useState(""); // 항목
-  const [price, setPrice] = useState(""); // 가격
-  const [detail, setDetail] = useState(""); // 내용
+const Input = ({ item, setItem, price, setPrice, detail, setDetail }) => {
 
   return (
     <>
