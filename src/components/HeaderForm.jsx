@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const HeaderForm = styled.header `
+const HeaderForm = styled.form `
     background-color: #cae6fb;
     display: flex;
     justify-content: start;

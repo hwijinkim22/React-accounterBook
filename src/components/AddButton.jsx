@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Input from "./Input";
 
 const ButtonStyle = styled.button`
   background-color: #75c3ff;
@@ -11,19 +10,19 @@ const ButtonStyle = styled.button`
   color: white;
   cursor: pointer;
   font-size: 14px;
+  display: flex;
 
   &:hover {
     background-color: #5aabff;
   }
 `;
 
-const AddButton = ({handleAdd}) => {
+const AddButton = ({children = "등록"}) => {
   return (
     <div>
       <ButtonStyle
       type="submit"
-      onClick={handleAdd}
-      >등록</ButtonStyle>
+      >{children}</ButtonStyle>
     </div>
   );
 };
