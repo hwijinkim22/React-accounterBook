@@ -17,11 +17,12 @@ const ButtonStyle = styled.button`
   }
 `;
 
-const AddButton = ({children = "등록"}) => {
+const AddButton = ({children, type, onClick}) => {
   return (
     <div>
       <ButtonStyle
-      type="submit"
+      type={type}
+      onClick={onClick}
       >{children}</ButtonStyle>
     </div>
   );

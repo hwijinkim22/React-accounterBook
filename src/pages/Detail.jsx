@@ -43,15 +43,15 @@ const Detail = ({ list, setList }) => {
   const detailRef = useRef();
   const dateRef = useRef();
 
-  const update = (e) => {
+  const updateItem= (e) => {
     e.preventDefault();
-
+    
     const editList = list.map((item) =>
       item.id === id
         ? {
             ...item,
             item: itemRef.current.value,
-            price: priceRef.current.value,
+            price: Number(priceRef.current.value),
             detail: detailRef.current.value,
             date: dateRef.current.value,
           }
@@ -60,13 +60,21 @@ const Detail = ({ list, setList }) => {
 
     setList(editList);
     navigate("/");
-
   };
+
+  const deleteItem = () => {
+    const removeList = list.filter((item) => item.id !== id)
+    setList(removeList);
+    navigate("/");
+  };
+
+  const back = () => {
+    return navigate("/");
+  }
 
   return (
     <DetailContainer>
-      {/* {list && ( */}
-      <StyledForm onSubmit={update}>
+      <StyledForm onSubmit={updateItem}>
         <h3>상세 페이지</h3>
         날짜 :<StyledInput defaultValue={details?.date} ref={dateRef} />
         항목 :<StyledInput defaultValue={details?.item} ref={itemRef} />
@@ -74,10 +82,10 @@ const Detail = ({ list, setList }) => {
         내용 :<StyledInput defaultValue={details?.detail} ref={detailRef} />
         <ButtonContainer>
           <AddButton type="submit">수정</AddButton>
-          <AddButton>삭제</AddButton>
+          <AddButton type="button" onClick={deleteItem}>삭제</AddButton>
+          <AddButton type="button" onClick={back}>뒤로 가기</AddButton>
         </ButtonContainer>
       </StyledForm>
-      {/* )} */}
     </DetailContainer>
   );
 };

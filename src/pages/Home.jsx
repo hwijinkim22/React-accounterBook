@@ -45,7 +45,7 @@ const Home = ({list, setList, currentMonth, setCurrentMonth}) => {
       <HeaderForm onSubmit={handleAdd}>
         <DateInput date={date} setDate={setDate} />
         <Input date={date} setDate={setDate} item={item} setItem={setItem} price={price} setPrice={setPrice} detail={detail} setDetail={setDetail} />
-        <AddButton/>
+        <AddButton>등록</AddButton>
       </HeaderForm>
       <MonthForm currentMonth={currentMonth} setCurrentMonth={setCurrentMonth}/>
       <List filteredList={filteredList}/>
