@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { EveryContext } from "./context/EveryContext";
 
 const ButtonStyle = styled.button`
   background-color: #75c3ff;
@@ -17,7 +18,8 @@ const ButtonStyle = styled.button`
   }
 `;
 
-const AddButton = ({children, type, onClick}) => {
+const AddButton = () => {
+  const {children, type, onClick} = useContext(EveryContext);
   return (
     <div>
       <ButtonStyle

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import HeaderForm from "../components/HeaderForm";
 import Input from "../components/Input";
@@ -6,13 +6,11 @@ import DateInput from "../components/DateInput";
 import MonthForm from "../components/MonthForm";
 import AddButton from "../components/AddButton";
 import List from "../components/List";
+import { EveryContext } from "../components/context/EveryContext";
 
-const Home = ({list, setList, currentMonth, setCurrentMonth}) => {
-  const [item, setItem] = useState("");
-  const [price, setPrice] = useState("");
-  const [detail, setDetail] = useState("");
-  const [date, setDate] = useState("");
-
+const Home = () => {
+  const {list, setList, currentMonth} = useContext(EveryContext);
+  console.log("Every:", list);
   const filteredList = list.filter(item => {
     return parseInt(item.date.split("-")[1]) === parseInt(currentMonth);
   });
@@ -43,11 +41,11 @@ const Home = ({list, setList, currentMonth, setCurrentMonth}) => {
   return (
     <>
       <HeaderForm onSubmit={handleAdd}>
-        <DateInput date={date} setDate={setDate} />
-        <Input date={date} setDate={setDate} item={item} setItem={setItem} price={price} setPrice={setPrice} detail={detail} setDetail={setDetail} />
+        <DateInput/>
+        <Input/>
         <AddButton>등록</AddButton>
       </HeaderForm>
-      <MonthForm currentMonth={currentMonth} setCurrentMonth={setCurrentMonth}/>
+      <MonthForm/>
       <List filteredList={filteredList}/>
     </>
   );

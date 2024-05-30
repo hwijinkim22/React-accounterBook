@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { EveryContext } from "./context/EveryContext";
 
 
 const InputStyle = styled.input`
@@ -8,7 +9,8 @@ const InputStyle = styled.input`
     justify-content: center;
     align-items: center;
 `
-const Input = ({ item, setItem, price, setPrice, detail, setDetail }) => {
+const Input = () => {
+  const {item, setItem, price, setPrice, detail, setDetail } = useContext(EveryContext);
 
   return (
     <>

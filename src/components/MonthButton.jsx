@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import List from './List'
+import { EveryContext } from './context/EveryContext'
+
 
 const StyleMonthButton = styled.button`
 
@@ -23,11 +24,14 @@ const StyleMonthButton = styled.button`
 
 `
 
-const MonthButton = ({month, currentMonth ,setCurrentMonth}) => {
-  
+const MonthButton = ({month}) => {
+  const {currentMonth, setCurrentMonth} = useContext(EveryContext);
+
   const handleClick = (e) => {
     setCurrentMonth(e.target.value);
-  }
+  };
+
+
   return (
     <div>
       <StyleMonthButton

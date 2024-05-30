@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
+import { EveryContext } from "../components/context/EveryContext";
 const DetailContainer = styled.div`
   display: flex;
   align-items: center;
@@ -32,7 +33,8 @@ const ButtonContainer = styled.div`
   gap: 10px;
   margin-top: 10px;
 `;
-const Detail = ({ list, setList }) => {
+const Detail = () => {
+  const {list, setList } = useContext(EveryContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -63,9 +65,11 @@ const Detail = ({ list, setList }) => {
   };
 
   const deleteItem = () => {
-    const removeList = list.filter((item) => item.id !== id)
-    setList(removeList);
-    navigate("/");
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      const removeList = list.filter((item) => item.id !== id);
+      setList(removeList);
+      navigate("/");
+    }
   };
 
   const back = () => {
