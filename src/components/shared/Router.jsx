@@ -4,6 +4,8 @@ import Home from "../../pages/Home"
 import Detail from '../../pages/Detail'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import { Provider } from 'react-redux'
+import store from '../../redux/store'
 
 const Router = () => {
   const [list, setList] = useState([
@@ -43,12 +45,14 @@ const Router = () => {
 
   return (
     <>
+  <Provider store={store}>
     <BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Home currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} list={list} setList={setList}/>} />
         <Route path="/detail/:id" element={<Detail list={list} setList={setList}/>} />
 			</Routes>
     </BrowserRouter>
+  </Provider> 
     </>
   )
 }

@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteList, editList } from "../redux/slices/expensesSlice";
+
 const DetailContainer = styled.div`
   display: flex;
   align-items: center;
@@ -32,10 +35,13 @@ const ButtonContainer = styled.div`
   gap: 10px;
   margin-top: 10px;
 `;
-const Detail = ({ list, setList }) => {
+
+const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const list = useSelector((state) => state.expenses);
   const details = list.find((item) => item.id === id);
 
   const itemRef = useRef();
@@ -43,43 +49,51 @@ const Detail = ({ list, setList }) => {
   const detailRef = useRef();
   const dateRef = useRef();
 
-  const updateItem= (e) => {
-    e.preventDefault();
-    
-    const editList = list.map((item) =>
-      item.id === id
-        ? {
-            ...item,
-            item: itemRef.current.value,
-            price: Number(priceRef.current.value),
-            detail: detailRef.current.value,
-            date: dateRef.current.value,
-          }
-        : item
-    );
+  useEffect(() => { // details가 있을 경우 인풋에 초기값 설정
+    if (details) {
+      itemRef.current.value = details.item;
+      priceRef.current.value = details.price;
+      detailRef.current.value = details.detail;
+      dateRef.current.value = details.date;
+    }
+  }, [details]);
 
-    setList(editList);
+  const updateItem = (e) => {
+    e.preventDefault();
+
+    const newList = {
+      id: id,
+      date: dateRef.current.value,
+      item: itemRef.current.value,
+      price: Number(priceRef.current.value),
+      detail: detailRef.current.value,
+    };
+
+    dispatch(editList(newList));
     navigate("/");
   };
 
   const deleteItem = () => {
-    const removeList = list.filter((item) => item.id !== id)
-    setList(removeList);
+    const confirm = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirm) {
+      return;
+    }
+    dispatch(deleteList({ id }));
     navigate("/");
   };
 
   const back = () => {
-    return navigate("/");
-  }
+    navigate("/");
+  };
 
   return (
     <DetailContainer>
       <StyledForm onSubmit={updateItem}>
         <h3>상세 페이지</h3>
-        날짜 :<StyledInput defaultValue={details?.date} ref={dateRef} />
-        항목 :<StyledInput defaultValue={details?.item} ref={itemRef} />
-        가격 :<StyledInput defaultValue={details?.price.toLocaleString()}원 ref={priceRef} />
-        내용 :<StyledInput defaultValue={details?.detail} ref={detailRef} />
+        날짜 : <StyledInput defaultValue={details?.date} ref={dateRef} />
+        항목 : <StyledInput defaultValue={details?.item} ref={itemRef} />
+        가격 : <StyledInput defaultValue={details?.price.toLocaleString()}원 ref={priceRef} />
+        내용 : <StyledInput defaultValue={details?.detail} ref={detailRef} />
         <ButtonContainer>
           <AddButton type="submit">수정</AddButton>
           <AddButton type="button" onClick={deleteItem}>삭제</AddButton>

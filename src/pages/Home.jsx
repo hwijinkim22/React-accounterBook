@@ -6,13 +6,19 @@ import DateInput from "../components/DateInput";
 import MonthForm from "../components/MonthForm";
 import AddButton from "../components/AddButton";
 import List from "../components/List";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addList } from "../redux/slices/expensesSlice";
 
-const Home = ({list, setList, currentMonth, setCurrentMonth}) => {
+const Home = ({ currentMonth, setCurrentMonth }) => {
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
   const [date, setDate] = useState("");
 
+  const list = useSelector((state)=> state.expenses);
+
+  const dispatch = useDispatch();
   const filteredList = list.filter(item => {
     return parseInt(item.date.split("-")[1]) === parseInt(currentMonth);
   });
@@ -32,8 +38,8 @@ const Home = ({list, setList, currentMonth, setCurrentMonth}) => {
       date: date,
     };
 
-    const updateList = [...list, newList];
-    setList(updateList);
+    dispatch(addList(newList));
+
     setItem("");
     setPrice("");
     setDetail("");
